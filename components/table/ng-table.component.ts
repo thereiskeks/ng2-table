@@ -6,7 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   template: `
     <table class="table dataTable" ngClass="{{config.className || ''}}"
            role="grid" style="width: 100%;">
-      <thead>
+      <thead *ngIf="showHead">
         <tr role="row">
           <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" 
               (sortChanged)="onChangeTable($event)" ngClass="{{column.className || ''}}">
@@ -36,6 +36,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class NgTableComponent {
   // Table values
   @Input() public rows:Array<any> = [];
+  @Input()
+  showHead:boolean = true;
 
   @Input()
   public set config(conf:any) {
